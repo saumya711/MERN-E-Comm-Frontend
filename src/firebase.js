@@ -5,7 +5,7 @@ import { initializeApp } from "firebase/app";
 const firebaseConfig = {
   apiKey: "AIzaSyD7WwrPUJHPFOgB1MMZsu6NLYkgM1MLDug",
   authDomain: "ecommerce-84d73.firebaseapp.com",
-   //databaseURL: "https://ecommerce-84d73.firebaseio.com",
+  databaseURL: "https://ecommerce-84d73.firebaseio.com",
   projectId: "ecommerce-84d73",
   storageBucket: "ecommerce-84d73.appspot.com",
   messagingSenderId: "722745819940",
