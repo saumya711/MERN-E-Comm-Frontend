@@ -7,12 +7,24 @@ const RegisterComplete = ({ history }) => {
   const [email, setEmail] = useState("");
   const [ password, setPassword ] = useState(""); 
 
-  useState(() => {
-    setEmail(window.localStorage.getItem('emailForRegistration'))
+  useEffect(() => {
+    setEmail(window.localStorage.getItem('emailForRegistration'));
+    //console.log("location", window.location.href);
+    //console.log("email", window.localStorage.getItem('emailForRegistration'));
   }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const result = await auth.signInWithEmailLink(
+        email,
+        window.location.href
+      );
+      // console.log('RESULT', result)
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message)
+    }
 
   }
 
