@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
-import { auth } from '../../firebase';
+import { auth, googleAuthProvider } from '../../firebase';
 import { toast } from 'react-toastify';
-import { MailOutlined } from '@ant-design/icons';
+import { GoogleOutlined, MailOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { useDispatch } from 'react-redux';
 
@@ -35,7 +35,27 @@ const Login = ({history}) => {
       toast.error(error.message);
       setLoading(false)
     }
+  };
 
+  const googleLogin = async () => {
+    auth.signInWithPopup(googleAuthProvider)
+    .then(async (result) => {
+      const { user } = result
+      const idTokenResult = await user.getIdTokenResult()
+
+      dispatch({
+        type: "LOGGED_IN_USER",
+        payload: {
+          email: user.email,
+          token: idTokenResult.token,
+        },
+      });
+      history.push('/')
+    })
+    .catch((error) => {
+      console.log(error);
+      toast.error(error.message);
+    });
   }
 
   const loginForm = () => {
@@ -71,7 +91,6 @@ const Login = ({history}) => {
       size='large'
       disabled={!email || password.length < 6}>
         Login with Email/Password
-
       </Button>
     </form>
     )
@@ -81,8 +100,24 @@ const Login = ({history}) => {
     <div className="container p-5">
       <div className="row">
         <div className="col-md-6 offset-md-">
-          <h4>Login</h4>
+          {loading ? (
+            <h4 className='text-danger'>Loading...</h4>
+            ) : (
+              <h4>Login</h4>
+            )}
           {loginForm()}
+
+          <Button
+            onClick={googleLogin}
+            type='secondary'
+            className='mb-3'
+            block
+            shape='round'
+            icon={<GoogleOutlined/>}
+            size='large'
+          >
+            Login with Google
+          </Button>
         </div>
       </div>
     </div>
