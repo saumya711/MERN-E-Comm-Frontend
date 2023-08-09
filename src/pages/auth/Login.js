@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { GoogleOutlined, MailOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom'
 
 const Login = ({history}) => {
 
@@ -109,7 +110,7 @@ const Login = ({history}) => {
 
           <Button
             onClick={googleLogin}
-            type='secondary'
+            type='danger'
             className='mb-3'
             block
             shape='round'
@@ -118,6 +119,7 @@ const Login = ({history}) => {
           >
             Login with Google
           </Button>
+          <Link to='/forgot-password' className="float-right text-danger">Forgot Password</Link>
         </div>
       </div>
     </div>
