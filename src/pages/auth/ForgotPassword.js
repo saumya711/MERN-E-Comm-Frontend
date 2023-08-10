@@ -7,9 +7,36 @@ const ForgotPassword = ({history}) => {
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
 
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setLoading(true);
+      const config = {
+        url: process.env.REACT_APP_FORGOT_PASSWORD_REDIRECT,
+        handleCodeInApp: true,
+      };
+
+      await auth.sendPasswordResetEmail(email, config);
+    }
+
   return (
     <div className='container col-md-6 offset-md-3 p-5'>
-      form to get user email
+      { loading ? (
+        <h4 className='text-danger'> Loading</h4>
+      ) : (
+        <h4>Forgot Password</h4>
+      )}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          className='form-control'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder='Type your email'
+          autoFocus />
+          <button className='btn btn-raised mt-3' disabled={!email}>
+            Submit
+          </button>
+      </form>
     </div>
   )
 }
