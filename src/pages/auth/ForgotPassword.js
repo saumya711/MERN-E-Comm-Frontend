@@ -15,13 +15,22 @@ const ForgotPassword = ({history}) => {
         handleCodeInApp: true,
       };
 
-      await auth.sendPasswordResetEmail(email, config);
+      await auth.sendPasswordResetEmail(email, config)
+      .then(() => {
+        setLoading(false);
+        toast.success('Check your email for password reset link');
+      })
+      .catch((error) => {
+        setLoading(false);
+        toast.error(error.message);
+        console.log('ERROR MSG IN FORGOT PW', error);
+      });
     }
 
   return (
     <div className='container col-md-6 offset-md-3 p-5'>
       { loading ? (
-        <h4 className='text-danger'> Loading</h4>
+        <h4 className='text-danger'>Loading</h4>
       ) : (
         <h4>Forgot Password</h4>
       )}
