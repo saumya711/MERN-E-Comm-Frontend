@@ -144,7 +144,7 @@ const Login = ({history}) => {
 
           <Button
             onClick={googleLogin}
-            type='danger'
+            type='secondary'
             className='mb-3'
             block
             shape='round'
