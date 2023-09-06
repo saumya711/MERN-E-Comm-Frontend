@@ -19,7 +19,6 @@ const Header = () => {
     let { user } = useSelector((state) => ({...state}))
 
     const handleClick = (e) => {
-      //console.log(e.key);
       setCurrent(e.key);
     }
 
