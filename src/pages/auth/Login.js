@@ -34,7 +34,6 @@ const Login = ({history}) => {
     setLoading(true)
     try {
       const result = await auth.signInWithEmailAndPassword(email, password);
-      //console.log(result)
       const { user } = result
       const idTokenResult = await user.getIdTokenResult();
 
