@@ -5,7 +5,7 @@ const History = () => {
     <div className='container-fluid'>
         <div className='row'>
             <div className='col'>
-                user page
+                User Home Page
             </div>
         </div>
     </div>
