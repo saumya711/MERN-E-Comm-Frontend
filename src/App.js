@@ -11,10 +11,13 @@ import RegisterComplete from "./pages/auth/RegisterComplete";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import History from "./pages/user/History";
 import UserRoute from "./components/routes/UserRoute";
+import Password from "./pages/user/Password";
+import Wishlist from "./pages/user/Wishlist";
 
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { curentUser } from "./functions/auth";
+import { withSuccess } from "antd/es/modal/confirm";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -55,6 +58,8 @@ const App = () => {
         <Route exact path="/register/complete" component={RegisterComplete} />
         <Route exact path="/forgot-password" component={ForgotPassword} />
         <UserRoute exact path="/user/history" component={History} />
+        <UserRoute exact path="/user/password" component={Password} />
+        <UserRoute exact path="/user/wishlist" component={Wishlist} />
       </Switch>
     </>
   )
