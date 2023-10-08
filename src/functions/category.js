@@ -1,0 +1,39 @@
+import axios from 'axios';
+
+export const getAllCategories = async () => {
+    return await axios.get(
+      `${process.env.REACT_APP_API}/categories`, 
+    );
+};
+
+export const getCategory = async (slug) => {
+    return await axios.get(
+      `${process.env.REACT_APP_API}/category/${slug}`, 
+    );
+};
+
+export const deleteCategory = async (slug, authtoken) => {
+    return await axios.delete(`${process.env.REACT_APP_API}/category/${slug}`, {
+        headers: {
+            authtoken,
+        }}
+    );
+};
+
+export const updateCategory = async (slug, category, authtoken) => {
+    return await axios.put(
+      `${process.env.REACT_APP_API}/category/${slug}`, {
+        headers: {
+        authtoken,
+      }}
+    );
+};
+
+export const createCategory = async (category, authtoken) => {
+    return await axios.put(
+      `${process.env.REACT_APP_API}/category`, category, {
+        headers: {
+        authtoken,
+      }}
+    );
+};
