@@ -42,6 +42,17 @@ const Header = () => {
         icon={<SettingOutlined />} 
         title={user.email && user.email.split("@")[0]} //name@gmail.com -- ['name', 'gmail.com']
         className='float-right'>
+          {user && user.role === "subscriber" && (
+            <Item>
+              <Link to="/user/history">Dashboard</Link>
+            </Item>
+          )}
+
+          {user && user.role === "admin" && (
+            <Item>
+              <Link to="/admin/dashboard">Dashboard</Link>
+            </Item>
+          )}
           <Item icon={<LogoutOutlined/>} onClick={logout}>Logout</Item>
       </SubMenu>
       )}
