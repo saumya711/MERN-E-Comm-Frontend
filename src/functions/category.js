@@ -30,7 +30,7 @@ export const updateCategory = async (slug, category, authtoken) => {
 };
 
 export const createCategory = async (category, authtoken) => {
-    return await axios.put(
+    return await axios.post(
       `${process.env.REACT_APP_API}/category`, category, {
         headers: {
         authtoken,
