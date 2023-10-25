@@ -7,6 +7,8 @@ import {
   getAllCategories,
   deleteCategory
 } from '../../../functions/category';
+import { Link } from "react-router-dom";
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const CategoryCreate = () => {
   const {user} = useSelector((state) => ({...state}))
@@ -37,12 +39,33 @@ const CategoryCreate = () => {
         setLoading(false);
         setname('');
         toast.success(`"${res.data.name}" is created`);
+        loadCategories();
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
         if (err.response.status === 400) toast.error(err.response.data);
       });
+  }
+
+  const hanldeDelete = async (slug) => {
+    // let answer = window.confirm("Delete?");
+    // console.log(answer, slug);
+    if (window.confirm("Are you sure delete this category?")) {
+      setLoading(true);
+      deleteCategory(slug, user.token)
+        .then((res) => {
+          setLoading(false);
+          toast.error(`${res.data.name} deleted`);
+          loadCategories();
+        })
+        .catch((err) => {
+          if (err.response.status === 400) {
+            setLoading(false);
+            toast.error(err.response.data)}
+          ;
+        })
+    }
   }
 
   const categoryForm = () => {
@@ -73,7 +96,21 @@ const CategoryCreate = () => {
               {loading ? <h4 className='text-danger'>Loading...</h4> : <h4>Craete Category</h4>}
               {categoryForm()}
               <hr />
-              {categories.length}
+              {categories.map((c) => (
+                <div className='alert alert-secondary' key={c._id}>
+                  {c.name}
+                  <span 
+                  onClick={() => hanldeDelete(c.slug)}
+                  className='btn btn-sm float-right'>
+                    <DeleteOutlined className='text-danger'/>
+                  </span>
+                  <Link to={`/admin/category/${c.slug}`}>
+                  <span className='btn btn-sm float-right'>
+                    <EditOutlined className='text-success' />
+                  </span>
+                  </Link>
+                </div>
+              ))}
             </div>
         </div>
     </div>
