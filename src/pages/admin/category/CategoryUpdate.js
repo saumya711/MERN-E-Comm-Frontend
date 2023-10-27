@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { getCategory, updateCategory } from '../../../functions/category';
 //import { useParams } from 'react-router-dom';
+import CategoryForm from "../../../components/forms/CategoryForm"
 
 const CategoryUpdate = ({history, match}) => {
   const {user} = useSelector((state) => ({...state}))
@@ -44,25 +45,6 @@ const CategoryUpdate = ({history, match}) => {
       });
   }
 
-
-  const categoryForm = () => {
-    return (
-      <form onSubmit={handleSubmit}>
-        <div className='form-group'>
-          <label>Category Name</label>
-          <input 
-            type='text'
-            className='form-control'
-            value={name}
-            onChange={(e) => setname(e.target.value)}
-            autoFocus
-            required
-          />
-          <button className='btn btn-outline-primary mt-3'>Save</button>
-        </div>
-      </form>
-    )
-  }
   return (
     <div className='container-fluid'>
         <div className='row'>
@@ -71,7 +53,12 @@ const CategoryUpdate = ({history, match}) => {
           </div>
             <div className='col'>
               {loading ? <h4 className='text-danger'>Loading...</h4> : <h4>Update Category</h4>}
-              {categoryForm()}
+
+              <CategoryForm 
+                handleSubmit={handleSubmit}
+                name={name}
+                setname={setname}
+              />
               <hr />
             </div>
         </div>
