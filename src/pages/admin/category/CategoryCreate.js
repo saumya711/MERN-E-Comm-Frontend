@@ -78,42 +78,43 @@ const CategoryCreate = () => {
 
   return (
     <div className='container-fluid'>
-        <div className='row'>
-          <div className='col-md-2'>
-            <AdminNav />
-          </div>
-            <div className='col'>
-              {loading ? <h4 className='text-danger'>Loading...</h4> : <h4>Craete Category</h4>}
-              
-              <CategoryForm 
-                handleSubmit={handleSubmit}
-                name={name}
-                setname={setname}
-              />
-
-              {/* step 2 and 3*/}
-              < LocalSearch 
-                keyword={keyword}
-                setKeyword={setKeyword}
-              />
-              {/* step 5 */}
-              {categories.filter(searched(keyword)).map((c) => (
-                <div className='alert alert-secondary' key={c._id}>
-                  {c.name}
-                  <span 
-                  onClick={() => hanldeDelete(c.slug)}
-                  className='btn btn-sm float-right'>
-                    <DeleteOutlined className='text-danger'/>
-                  </span>
-                  <Link to={`/admin/category/${c.slug}`}>
-                  <span className='btn btn-sm float-right'>
-                    <EditOutlined className='text-success' />
-                  </span>
-                  </Link>
-                </div>
-              ))}
-            </div>
+      <div className='row'>
+        <div className='col-md-2'>
+          <AdminNav />
         </div>
+        <div className='col-md-10'>
+          {loading ? <h4 className='text-danger'>Loading...</h4> : <h4>Craete Category</h4>}
+          
+          <CategoryForm 
+            handleSubmit={handleSubmit}
+            name={name}
+            setname={setname}
+          />
+
+          {/* step 2 and 3*/}
+          < LocalSearch 
+            keyword={keyword}
+            setKeyword={setKeyword}
+          />
+          
+          {/* step 5 */}
+          {categories.filter(searched(keyword)).map((c) => (
+            <div className='alert alert-secondary' key={c._id}>
+              {c.name}
+              <span 
+              onClick={() => hanldeDelete(c.slug)}
+              className='btn btn-sm float-right'>
+                <DeleteOutlined className='text-danger'/>
+              </span>
+              <Link to={`/admin/category/${c.slug}`}>
+              <span className='btn btn-sm float-right'>
+                <EditOutlined className='text-success' />
+              </span>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
