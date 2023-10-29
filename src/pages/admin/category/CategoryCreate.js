@@ -15,7 +15,7 @@ import LocalSearch from '../../../components/forms/LocalSearch';
 const CategoryCreate = () => {
   const {user} = useSelector((state) => ({...state}))
 
-  const [name, setname] = useState('');
+  const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
 
@@ -42,7 +42,7 @@ const CategoryCreate = () => {
     createCategory({ name }, user.token)
       .then((res) => {
         setLoading(false);
-        setname('');
+        setName('');
         toast.success(`"${res.data.name}" is created`);
         loadCategories();
       })
@@ -88,7 +88,7 @@ const CategoryCreate = () => {
           <CategoryForm 
             handleSubmit={handleSubmit}
             name={name}
-            setname={setname}
+            setName={setName}
           />
 
           {/* step 2 and 3*/}
