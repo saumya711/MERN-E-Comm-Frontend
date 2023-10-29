@@ -9,7 +9,7 @@ import CategoryForm from "../../../components/forms/CategoryForm"
 const CategoryUpdate = ({history, match}) => {
   const {user} = useSelector((state) => ({...state}))
 
-  const [name, setname] = useState('');
+  const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
 
   //let { slug } = useParams();
@@ -22,7 +22,7 @@ const CategoryUpdate = ({history, match}) => {
     return (
         getCategory(match.params.slug)
       .then((c) =>
-      setname(c.data.name)
+      setName(c.data.name)
       )
     )
   }
@@ -34,7 +34,7 @@ const CategoryUpdate = ({history, match}) => {
     updateCategory(match.params.slug, { name }, user.token)
       .then((res) => {
         setLoading(false);
-        setname('');
+        setName('');
         toast.success(`"${res.data.name}" is updated`);
         history.push('/admin/category');
       })
@@ -57,7 +57,7 @@ const CategoryUpdate = ({history, match}) => {
               <CategoryForm 
                 handleSubmit={handleSubmit}
                 name={name}
-                setname={setname}
+                setName={setName}
               />
               <hr />
             </div>

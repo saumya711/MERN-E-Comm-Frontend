@@ -12,7 +12,7 @@ import LocalSearch from '../../../components/forms/LocalSearch';
 const SubCategoryCreate = () => {
   const {user} = useSelector((state) => ({...state}))
 
-  const [name, setname] = useState('');
+  const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [parentCategory, setParentCategory] = useState("");
@@ -51,7 +51,7 @@ const SubCategoryCreate = () => {
     createSubCategory({ name, parent: parentCategory }, user.token)
       .then((res) => {
         setLoading(false);
-        setname('');
+        setName('');
         toast.success(`"${res.data.name}" is created`);
         loadSubCategories();
       })
@@ -113,7 +113,7 @@ const SubCategoryCreate = () => {
           <CategoryForm 
             handleSubmit={handleSubmit}
             name={name}
-            setname={setname}
+            setName={setName}
           />
 
           {/* step 2 and 3*/}
