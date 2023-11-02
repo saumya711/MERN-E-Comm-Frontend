@@ -12,6 +12,7 @@ const initialState = {
   category: "",
   subs: [],
   shipping: "",
+  quantity: "",
   images: [],
   colors: ["Black", "Brown", "Silver", "White", "Blue"],
   brands: ["Apple", "Samsung", "Microsoft", "Lenovo", "Asus"],
@@ -31,6 +32,7 @@ const ProductCreate = () => {
     category,
     subs,
     shipping,
+    quantity,
     images,
     colors,
     brands,
@@ -96,10 +98,51 @@ const ProductCreate = () => {
                       className='form-control'
                       onChange={handleChange}
                     >
+                      <option>Please Select</option>
                       <option value="No">No</option>
                       <option value="Yes">Yes</option>
                     </select>
                   </div>
+
+                  <div className='form-group'>
+                    <label>Quantity</label>
+                    <input 
+                      type='number'
+                      name='quantity'
+                      className='form-control'
+                      value={quantity}
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  <div className='form-group'>
+                    <label>Color</label>
+                    <select 
+                      name='color'
+                      className='form-control'
+                      onChange={handleChange}
+                    >
+                      <option>Please Select</option>
+                      {colors.map((c) => (
+                        <option key={c} value={c}>{c}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className='form-group'>
+                    <label>Brand</label>
+                    <select 
+                      name='brand'
+                      className='form-control'
+                      onChange={handleChange}
+                    >
+                      <option>Please Select</option>
+                      {brands.map((b) => (
+                        <option key={b} value={b}>{b}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <button className='btn btn-outline-info'>Save</button>
                 </form>
             </div>
         </div>
