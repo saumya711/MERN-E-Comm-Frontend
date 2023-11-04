@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CategoryForm = ({handleSubmit, name, setname}) => {
+const CategoryForm = ({handleSubmit, name, setName}) => {
   return (
     <form onSubmit={handleSubmit}>
         <div className='form-group'>
@@ -9,7 +9,7 @@ const CategoryForm = ({handleSubmit, name, setname}) => {
             type='text'
             className='form-control'
             value={name}
-            onChange={(e) => setname(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             autoFocus
             required
           />
