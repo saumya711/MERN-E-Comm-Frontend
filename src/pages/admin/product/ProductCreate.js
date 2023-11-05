@@ -25,6 +25,7 @@ const initialState = {
 const ProductCreate = () => {
   const [ values, setValues ] = useState(initialState);
   const [ subOptions, setSubOptions ] = useState([]);
+  const [ showSub, setShowSub ] = useState(false);
 
   const {user} = useSelector((state) => ({...state}));
 
@@ -81,11 +82,16 @@ const ProductCreate = () => {
             <div className='col-md-10'>
                 <h4>Product Create</h4>
                 <hr />
+
+                {JSON.stringify(values.subs)}
                 <ProductCreateForm 
                   handleSubmit={handleSubmit}
                   handleChange={handleChange}
                   values={values}
+                  setValues={setValues}
                   handleCategoryChange={handleCategoryChange}
+                  subOptions={subOptions}
+                  showSub={showSub}
                 />
             </div>
         </div>
