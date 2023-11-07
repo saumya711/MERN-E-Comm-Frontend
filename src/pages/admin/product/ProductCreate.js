@@ -6,6 +6,7 @@ import { createProduct } from '../../../functions/product';
 import ProductCreateForm from '../../../components/forms/ProductCreateForm';
 import { getAllCategories, getSubCategories } from '../../../functions/category';
 import FileUpload from '../../../components/forms/FileUpload';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const initialState = {
   title: "",
@@ -66,7 +67,7 @@ const ProductCreate = () => {
 
   const handleCategoryChange = (e) => {
     e.preventDefault();
-    console.log("Clicked Category", e.target.value);
+    //console.log("Clicked Category", e.target.value);
     setValues({...values, subs: [], category: e.target.value});
     getSubCategories(e.target.value)
       .then((res) => {
@@ -83,10 +84,12 @@ const ProductCreate = () => {
             <AdminNav />
             </div>
             <div className='col-md-10'>
-                <h4>Product Create</h4>
+                {loading ? (
+                  <LoadingOutlined className='text-danger h1'/>
+                ) : (
+                  <h4>Product Create</h4>
+                )}
                 <hr />
-
-                {JSON.stringify(values.images)}
 
                 <div className='p-3'>
                   <FileUpload 
