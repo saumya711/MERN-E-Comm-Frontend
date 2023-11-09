@@ -26,7 +26,7 @@ const ProductUpdate = ({ match }) => {
     const [ values, setValues ] = useState(initialState);
     const [ categories, setCategories ] = useState([]);
     const [ subOptions, setSubOptions ] = useState([]);
-    const [ showSub, setShowSub ] = useState(false);
+    const [ subIdsArray, setSubIdsArray ] = useState([]);
 
     const {user} = useSelector((state) => ({...state}));
 
@@ -42,7 +42,21 @@ const ProductUpdate = ({ match }) => {
     const loadProduct = () => {
         getProduct(slug).then((p) => {
             //console.log("single product", p);
-            setValues({ ...values, ...p.data})
+            // 1 load single product
+            setValues({ ...values, ...p.data});
+
+            // 2 load single product category subs
+            getSubCategories(p.data.category._id).then((res) => {
+                setSubOptions(res.data);
+            });
+
+            // 3 prepare array of sub ids
+            let arr = [];
+            p.data.subs.map((s) => {
+                arr.push(s._id);
+            });
+            console.log('ARR', arr);
+            setSubIdsArray((prev) => arr)
         })
     }
 
@@ -73,7 +87,6 @@ const ProductUpdate = ({ match }) => {
             console.log("Sub Categories", res);
             setSubOptions(res.data);
           });
-          setShowSub(true);
       }
 
     return (
@@ -93,6 +106,9 @@ const ProductUpdate = ({ match }) => {
                         setValues={setValues}
                         handleCategoryChange={handleCategoryChange}
                         categories={categories}
+                        subOptions={subOptions}
+                        subIdsArray={subIdsArray}
+                        setSubIdsArray={setSubIdsArray}
                     />
                 </div>
             </div>
