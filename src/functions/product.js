@@ -23,3 +23,9 @@ export const deleteProduct = async (slug, authtoken) => {
     }}
   );
 };
+
+export const getProduct = async (slug) => {
+  return await axios.get(
+    `${process.env.REACT_APP_API}/product/${slug}`
+  );
+};
