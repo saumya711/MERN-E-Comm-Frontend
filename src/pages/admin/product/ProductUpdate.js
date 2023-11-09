@@ -27,6 +27,7 @@ const ProductUpdate = ({ match }) => {
     const [ categories, setCategories ] = useState([]);
     const [ subOptions, setSubOptions ] = useState([]);
     const [ subIdsArray, setSubIdsArray ] = useState([]);
+    const [ selectedCategory, setSelectedCategory ] = useState("");
 
     const {user} = useSelector((state) => ({...state}));
 
@@ -81,12 +82,23 @@ const ProductUpdate = ({ match }) => {
     const handleCategoryChange = (e) => {
         e.preventDefault();
         //console.log("Clicked Category", e.target.value);
-        setValues({...values, subs: [], category: e.target.value});
+        setValues({...values, subs: [] });
+
+        setSelectedCategory(e.target.value);
+
         getSubCategories(e.target.value)
           .then((res) => {
             console.log("Sub Categories", res);
             setSubOptions(res.data);
           });
+
+        // if user clicks back to the original category
+        // show it's sub categories in default
+        if(values.category._id === e.target.value) {
+            loadProduct();
+        }
+        // clear old sub categories
+        setSubIdsArray([]);  
       }
 
     return (
@@ -109,6 +121,7 @@ const ProductUpdate = ({ match }) => {
                         subOptions={subOptions}
                         subIdsArray={subIdsArray}
                         setSubIdsArray={setSubIdsArray}
+                        selectedCategory={selectedCategory}
                     />
                 </div>
             </div>
