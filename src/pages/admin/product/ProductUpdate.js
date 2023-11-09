@@ -5,12 +5,12 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getProduct } from '../../../functions/product';
 import ProductUpdateForm from '../../../components/forms/ProductUpdateForm';
+import { getAllCategories, getSubCategories } from '../../../functions/category';
 
 const initialState = {
     title: "",
     description: "",
     price: "",
-    categories: [],
     category: "",
     subs: [],
     shipping: "",
@@ -24,6 +24,10 @@ const initialState = {
 
 const ProductUpdate = ({ match }) => {
     const [ values, setValues ] = useState(initialState);
+    const [ categories, setCategories ] = useState([]);
+    const [ subOptions, setSubOptions ] = useState([]);
+    const [ showSub, setShowSub ] = useState(false);
+
     const {user} = useSelector((state) => ({...state}));
 
     //router
@@ -32,6 +36,7 @@ const ProductUpdate = ({ match }) => {
 
     useEffect(() => {
         loadProduct();
+        loadCategories();
     }, []);
 
     const loadProduct = () => {
@@ -41,6 +46,15 @@ const ProductUpdate = ({ match }) => {
         })
     }
 
+    const loadCategories = () => {
+        return (
+          getAllCategories()
+          .then((c) =>
+          setCategories(c.data)
+          )
+        )
+      }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         //
@@ -49,6 +63,18 @@ const ProductUpdate = ({ match }) => {
     const handleChange = (e) => {
         setValues({...values, [e.target.name]: e.target.value});
     }
+
+    const handleCategoryChange = (e) => {
+        e.preventDefault();
+        //console.log("Clicked Category", e.target.value);
+        setValues({...values, subs: [], category: e.target.value});
+        getSubCategories(e.target.value)
+          .then((res) => {
+            console.log("Sub Categories", res);
+            setSubOptions(res.data);
+          });
+          setShowSub(true);
+      }
 
     return (
         <div className='container-fluid'>
@@ -65,6 +91,8 @@ const ProductUpdate = ({ match }) => {
                         handleChange={handleChange}
                         values={values}
                         setValues={setValues}
+                        handleCategoryChange={handleCategoryChange}
+                        categories={categories}
                     />
                 </div>
             </div>
