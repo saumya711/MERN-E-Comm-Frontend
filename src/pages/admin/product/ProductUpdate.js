@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import { getProduct } from '../../../functions/product';
 import ProductUpdateForm from '../../../components/forms/ProductUpdateForm';
 import { getAllCategories, getSubCategories } from '../../../functions/category';
+import FileUpload from '../../../components/forms/FileUpload';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const initialState = {
     title: "",
@@ -28,6 +30,7 @@ const ProductUpdate = ({ match }) => {
     const [ subOptions, setSubOptions ] = useState([]);
     const [ subIdsArray, setSubIdsArray ] = useState([]);
     const [ selectedCategory, setSelectedCategory ] = useState("");
+    const [ loading, setLoading ] = useState(false);
 
     const {user} = useSelector((state) => ({...state}));
 
@@ -108,9 +111,22 @@ const ProductUpdate = ({ match }) => {
                 <AdminNav />
                 </div>
                 <div className='col-md-10'>
+                    {loading ? (
+                    <LoadingOutlined className='text-danger h1'/>
+                    ) : (
                     <h4>Product Update</h4>
+                    )}
                     <hr />
                     {/* {JSON.stringify(values)} */}
+
+                    <div className='p-3'>
+                        <FileUpload 
+                            values={values}
+                            setValues={setValues}
+                            setLoading={setLoading}
+                        />
+                    </div>
+                    
                     <ProductUpdateForm 
                         handleSubmit={handleSubmit}
                         handleChange={handleChange}
