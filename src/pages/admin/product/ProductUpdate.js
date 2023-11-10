@@ -3,7 +3,7 @@ import AdminNav from '../../../components/nav/AdminNav';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getProduct } from '../../../functions/product';
+import { getProduct, updateProduct } from '../../../functions/product';
 import ProductUpdateForm from '../../../components/forms/ProductUpdateForm';
 import { getAllCategories, getSubCategories } from '../../../functions/category';
 import FileUpload from '../../../components/forms/FileUpload';
@@ -19,12 +19,12 @@ const initialState = {
     quantity: "",
     images: [],
     colors: ["Black", "Brown", "Silver", "White", "Blue"],
-    brands: ["Apple", "Samsung", "Microsoft", "Lenovo", "Asus"],
+    brands: ["Apple", "Samsung", "Microsoft", "Lenovo", "Asus", "HP"],
     color: "",
     brand: "",
   }
 
-const ProductUpdate = ({ match }) => {
+const ProductUpdate = ({ match, history }) => {
     const [ values, setValues ] = useState(initialState);
     const [ categories, setCategories ] = useState([]);
     const [ subOptions, setSubOptions ] = useState([]);
@@ -75,7 +75,21 @@ const ProductUpdate = ({ match }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //
+        setLoading(true);
+
+        values.subs = subIdsArray;
+        values.category = selectedCategory ? selectedCategory : values.category;
+        updateProduct(slug, values, user.token)
+        .then((res) => {
+            setLoading(false);
+            toast.success(`"${res.data.title}" is Updated`);
+            history.push('/admin/products');
+        })
+        .catch((err) => {
+            console.log(err);
+            setLoading(false);
+            toast.error(err.response.data.err);
+        })
     }
 
     const handleChange = (e) => {
