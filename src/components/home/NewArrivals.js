@@ -16,7 +16,7 @@ const NewArrivals = () => {
 
   useEffect(() => {
     getProductsCount().then((res) => setProductsCount(res.data));
-  }, [])
+  }, []);
 
   const LoadAllProducts = () => {
     setLoading(true);
