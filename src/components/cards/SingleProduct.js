@@ -47,16 +47,16 @@ const SingleProduct = ({ product }) => {
               <HeartOutlined  className='text-info'/> <br /> Add to Wishlist
             </Link>,
             <RatingModal>
-            <StarRatings
-              name={_id}
-              numberOfStars={5}
-              rating={2}
-              starRatedColor="red"
-              changeRating={(newRating, name) => 
-                console.log("newRating", newRating, "name", name)
-              }
-              isSelectable={true}
-            />
+              <StarRatings
+                name={_id}
+                numberOfStars={5}
+                rating={2}
+                starRatedColor="red"
+                changeRating={(newRating, name) => 
+                  console.log("newRating", newRating, "name", name)
+                }
+                isSelectable={true}
+              />
           </RatingModal>
           ]}
         >
