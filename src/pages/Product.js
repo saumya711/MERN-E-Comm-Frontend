@@ -20,7 +20,7 @@ const Product = ({ match }) => {
             let existingRatingObject = product.ratings.find(
                 (ele) => ele.postedBy.toString() === user._id.toString()
             );
-            existingRatingObject && setStar(existingRatingObject.star);
+            existingRatingObject && setStar(existingRatingObject.star); // current user's star
         }
     })
 
