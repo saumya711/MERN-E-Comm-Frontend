@@ -7,6 +7,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'; 
+import Search from '../forms/Search';
 
 const { SubMenu, Item } = Menu;
 
@@ -70,6 +71,9 @@ const Header = () => {
       </SubMenu>
       )}
       
+      <span className='float-right p-1'>
+        <Search />
+      </span>
     </Menu>
   )
 }
