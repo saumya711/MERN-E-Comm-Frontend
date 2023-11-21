@@ -31,6 +31,7 @@ import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { curentUser } from "./functions/auth";
 import { withSuccess } from "antd/es/modal/confirm";
+import Shop from "./pages/Shop";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -87,6 +88,7 @@ const App = () => {
         <Route exact path="/product/:slug" component={Product} />
         <Route exact path="/category/:slug" component={CategoryHome} />
         <Route exact path="/sub-category/:slug" component={SubCategoryHome} />
+        <Route exact path="/shop" component={Shop} />
       </Switch>
     </>
   )
