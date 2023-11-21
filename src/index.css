@@ -3,3 +3,17 @@
     height: 500px;
     object-fit: cover;
 }
+
+.MenuContainer menu-item {
+    display: flex;
+    float: right !important;
+}
+/* .SubMenuContainer {
+    display: flex;
+    float: right !important; 
+} */
+
+.MenuContainer search-filter {
+    display: flex;
+    float: right !important; 
+}

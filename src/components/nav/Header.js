@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Menu } from 'antd';
-import { AppstoreOutlined, SettingOutlined, UserOutlined, UserAddOutlined, LogoutOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, SettingOutlined, UserOutlined, UserAddOutlined, LogoutOutlined, ShoppingOutlined,  } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 //import firebase from "firebase";
 import firebase from "firebase/compat/app";
@@ -38,14 +38,18 @@ const Header = () => {
         <Link to="/">Home</Link>
       </Item>
 
+      <Item key="shop" icon={<ShoppingOutlined />}>
+        <Link to="/shop">Shop</Link>
+      </Item>
+
       {!user && (
-        <Item key="register" icon={<UserAddOutlined />} style={{ float: 'right' }}>
+        <Item key="register" icon={<UserAddOutlined />} className='float-right'>
         <Link to="/register">Register</Link>
       </Item>
       )}
 
       {!user && (
-        <Item key="login" icon={<UserOutlined />} style={{ float: 'right' }}>
+        <Item key="login" icon={<UserOutlined />} className='float-right'>
         <Link to="/login">Login</Link>
       </Item>
       )}
@@ -54,7 +58,7 @@ const Header = () => {
         <SubMenu 
           icon={<SettingOutlined />} 
           title={user.email && user.email.split("@")[0]} //name@gmail.com -- ['name', 'gmail.com']
-          style={{ float: 'right' }}
+          className='float-right'
         >
           {user && user.role === "subscriber" && (
             <Item>
