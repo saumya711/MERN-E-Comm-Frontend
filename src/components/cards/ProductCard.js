@@ -10,7 +10,7 @@ const { Meta } = Card;
 const ProductCard = ({product}) => {
 
   // destructure
-  const { title, description, images, slug } = product;
+  const { title, description, images, slug, price } = product;
   
   return (
     <>
@@ -38,7 +38,10 @@ const ProductCard = ({product}) => {
           
         ]}
       >
-        <Meta title={title} description={`${description && description.substring(0, 40)}...`} />
+        <Meta 
+          title={`${title} - $${price}`} 
+          description={`${description && description.substring(0, 40)}...`} 
+        />
       </Card>
     </>
   )

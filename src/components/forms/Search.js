@@ -12,7 +12,7 @@ const Search = () => {
 
   const handleChange = (e) => {
     dispatch({
-      type: "SERACH_QUERY",
+      type: "SEARCH_QUERY",
       payload: { text: e.target.value},
     });
   }
