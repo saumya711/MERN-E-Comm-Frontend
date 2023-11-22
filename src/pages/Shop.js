@@ -5,7 +5,7 @@ import { getAllCategories } from '../functions/category'
 import { getAllSubCategories } from '../functions/subCategory'
 import ProducCard from '../components/cards/ProductCard';
 import { Menu, Slider, Checkbox, Radio } from 'antd';
-import { AntDesignOutlined, BgColorsOutlined, DollarOutlined, DownSquareOutlined, StarOutlined, TagsOutlined } from '@ant-design/icons'
+import { AntDesignOutlined, BgColorsOutlined, DollarOutlined, DownSquareOutlined, StarOutlined, TagsOutlined, TransactionOutlined } from '@ant-design/icons'
 import StarRatings from 'react-star-ratings';
 
 const { SubMenu, Item } = Menu;
@@ -37,6 +37,7 @@ const Shop = () => {
     "Blue"
   ]);
   const [color, setColor] = useState('');
+  const [shipping, setShipping] = useState('');
 
   const dispatch = useDispatch();
   const { search } = useSelector((state) => ({ ...state }));
@@ -87,6 +88,7 @@ const Shop = () => {
     setSubCategory('');
     setBrand('');
     setColor('');
+    setShipping('');
     setPrice(value);
     setTimeout(() => {
       setOk(!ok);
@@ -104,6 +106,7 @@ const Shop = () => {
     setSubCategory('');
     setBrand('');
     setColor('');
+    setShipping('');
     let inTheState = [...categoryIds];
     let justChecked = e.target.value;
     let foundInTheState = inTheState.indexOf(justChecked) // index or -1
@@ -132,6 +135,7 @@ const Shop = () => {
     setSubCategory('');
     setBrand('');
     setColor('');
+    setShipping('');
     setStar(num);
     fetchProducts({ stars: num});
   }
@@ -167,6 +171,7 @@ const Shop = () => {
     setStar('');
     setBrand('');
     setColor('');
+    setShipping('');
     setSubCategory(sub);
     fetchProducts({ sub });
   }
@@ -182,11 +187,12 @@ const Shop = () => {
     setStar('');
     setSubCategory([]);
     setColor('');
+    setShipping('');
     setBrand(e.target.value);
     fetchProducts({ brand: e.target.value });
   }
 
-  // 7. load load products based on color
+  // 8. load load products based on color
   const handleColor = (e) => {
     dispatch({
       type: "SEARCH_QUERY",
@@ -197,8 +203,25 @@ const Shop = () => {
     setStar('');
     setSubCategory([]);
     setBrand('');
+    setShipping('');
     setColor(e.target.value)
     fetchProducts({ color: e.target.value });
+  }
+
+  // 9. load load products based on shipping yes/no
+  const handleShipping = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: '' },
+    });
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar('');
+    setSubCategory([]);
+    setBrand('');
+    setColor('');
+    setShipping(e.target.value);
+    fetchProducts({ shipping: e.target.value });
   }
 
   return (
@@ -342,6 +365,38 @@ const Shop = () => {
                     </Radio>
                   </div>
                 ))}
+              </div>
+            </SubMenu>
+
+            {/* shipping */}
+            <SubMenu 
+              key='7' 
+              title={
+                <span className='h6'>
+                  <TransactionOutlined /> Shipping
+                </span>
+              }
+            >
+              <div style={{ marginTop: "10px", marginBottom: "10px"}}>
+                <div>
+                  <Checkbox
+                    className='pb-2 pl-4 pr-4'
+                    onChange={handleShipping}
+                    value="Yes"
+                    checked={shipping === 'Yes'}
+                  >
+                    Yes
+                  </Checkbox>
+
+                  <Checkbox
+                    className='pb-2 pl-4 pr-4'
+                    onChange={handleShipping}
+                    value="No"
+                    checked={shipping === 'No'}
+                  >
+                    No
+                  </Checkbox>
+                </div>
               </div>
             </SubMenu>
           </Menu>
