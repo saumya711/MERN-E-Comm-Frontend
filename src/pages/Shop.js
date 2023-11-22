@@ -5,7 +5,7 @@ import { getAllCategories } from '../functions/category'
 import { getAllSubCategories } from '../functions/subCategory'
 import ProducCard from '../components/cards/ProductCard';
 import { Menu, Slider, Checkbox, Radio } from 'antd';
-import { AntDesignOutlined, DollarOutlined, DownSquareOutlined, StarOutlined, TagsOutlined } from '@ant-design/icons'
+import { AntDesignOutlined, BgColorsOutlined, DollarOutlined, DownSquareOutlined, StarOutlined, TagsOutlined } from '@ant-design/icons'
 import StarRatings from 'react-star-ratings';
 
 const { SubMenu, Item } = Menu;
@@ -29,6 +29,14 @@ const Shop = () => {
     "HP"
   ]);
   const [brand, setBrand] = useState('');
+  const [colors, setColors] = useState([
+    "Black", 
+    "Brown", 
+    "Silver", 
+    "White", 
+    "Blue"
+  ]);
+  const [color, setColor] = useState('');
 
   const dispatch = useDispatch();
   const { search } = useSelector((state) => ({ ...state }));
@@ -78,6 +86,7 @@ const Shop = () => {
     setStar("");
     setSubCategory('');
     setBrand('');
+    setColor('');
     setPrice(value);
     setTimeout(() => {
       setOk(!ok);
@@ -94,6 +103,7 @@ const Shop = () => {
     setStar("");
     setSubCategory('');
     setBrand('');
+    setColor('');
     let inTheState = [...categoryIds];
     let justChecked = e.target.value;
     let foundInTheState = inTheState.indexOf(justChecked) // index or -1
@@ -121,6 +131,7 @@ const Shop = () => {
     setCategoryIds([]);
     setSubCategory('');
     setBrand('');
+    setColor('');
     setStar(num);
     fetchProducts({ stars: num});
   }
@@ -155,6 +166,7 @@ const Shop = () => {
     setCategoryIds([]);
     setStar('');
     setBrand('');
+    setColor('');
     setSubCategory(sub);
     fetchProducts({ sub });
   }
@@ -169,8 +181,24 @@ const Shop = () => {
     setCategoryIds([]);
     setStar('');
     setSubCategory([]);
+    setColor('');
     setBrand(e.target.value);
     fetchProducts({ brand: e.target.value });
+  }
+
+  // 7. load load products based on color
+  const handleColor = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: '' },
+    });
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar('');
+    setSubCategory([]);
+    setBrand('');
+    setColor(e.target.value)
+    fetchProducts({ color: e.target.value });
   }
 
   return (
@@ -285,6 +313,32 @@ const Shop = () => {
                       className='pb-1 pl-2 pr-4'
                     >
                       {b}
+                    </Radio>
+                  </div>
+                ))}
+              </div>
+            </SubMenu>
+
+            {/* color */}
+            <SubMenu 
+              key='6' 
+              title={
+                <span className='h6'>
+                  <BgColorsOutlined /> Color
+                </span>
+              }
+            >
+              <div style={{ marginTop: "10px", marginBottom: "10px"}}>
+                {colors.map((c) => (
+                  <div>
+                    <Radio 
+                      value={c}
+                      name={c}
+                      checked={c === color}
+                      onChange={handleColor}
+                      className='pb-1 pl-2 pr-4'
+                    >
+                      {c}
                     </Radio>
                   </div>
                 ))}
