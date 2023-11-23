@@ -23,7 +23,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
             {images && images.map((image) => <img src={image.url} key={image.public_id}/>)}
           </Carousel>
         ) : (
-          <Card cover={<img src={laptop} className="mb-3 card-image" />}></Card>
+          <Card cover={<img src="" className="mb-3 card-image" />}></Card>
         )}
 
         <Tabs type='card'>
