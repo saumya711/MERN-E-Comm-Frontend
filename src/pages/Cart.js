@@ -11,6 +11,10 @@ const Cart = () => {
       return currentValue + nextValue.count * nextValue.price
     }, 0)
   }
+
+  const saveOrderToDB = () => {
+    //
+  }
   return (
     <div className='container-fluid pt-3'>
       <div className='row'>
@@ -38,12 +42,23 @@ const Cart = () => {
           Total: <b>${getTotal()}</b>
           <hr/>
           {user ? (
-            <button className='btn btn-sm btn-primary mt-2'>
+            <button 
+              className='btn btn-sm btn-primary mt-2'
+              onClick={saveOrderToDB}
+              disabled={!cart.length}
+            >
               Proceed to Checkout
             </button>
           ) : (
             <button className='btn btn-sm btn-primary mt-2'>
-              Login to Checkout
+              <Link
+                to={{
+                    pathname: '/login',
+                    state: { from: "cart"},
+                }}
+              >
+                Login to Checkout
+              </Link>
             </button>
           )}
         </div>  

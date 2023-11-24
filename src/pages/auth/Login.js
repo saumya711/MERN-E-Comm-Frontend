@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { auth, googleAuthProvider } from '../../firebase';
 import { toast } from 'react-toastify';
-import { CaretRightFilled, GoogleOutlined, MailOutlined } from '@ant-design/icons';
+import { GoogleOutlined, MailOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -15,24 +15,35 @@ const Login = ({ history }) => {
 
   const { user } = useSelector((state) => ({ ...state }));
 
+  // useEffect(() => {
+  //   let intended = history.location.state;
+  //   if (intended) {
+  //     return;
+  //   } else {
+  //     if (user && user.token) history.push("/");
+  //   }
+  // }, [user, history]);
+
+  // to fix redirect history page after login
   useEffect(() => {
-    let intended = history.location.state?.from;
-    console.log("intended", intended);
+    let intended = history.location.state;
+    //console.log("intended", intended);
     if (intended) {
       return;
     } else {
       if (user && user.token) history.push("/");
     }
-  }, [user, history]);
+  }, [history]);
+  
 
   const dispatch = useDispatch();
 
   const roleBasedRedirect = (res) => {
     // check if intended
-    let intended = history.location.state?.from;
+    let intended = history.location.state;
     //console.log("intended", intended);
     if (intended) {
-      history.push(intended);
+      history.push(intended.from);
     } else {
       if (res.data.role === "admin") {
         history.push("/admin/dashboard");
