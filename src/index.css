@@ -17,3 +17,7 @@
     display: flex;
     float: right !important; 
 }
+
+.pointer {
+    cursor: pointer;
+}
