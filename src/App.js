@@ -27,6 +27,7 @@ import Product from "./pages/Product";
 import CategoryHome from "./pages/category/CategoryHome";
 import SubCategoryHome from "./pages/subCategory/SubCategoryHome";
 import Cart from "./pages/Cart";
+import SideDrawer from "./components/drawer/SideDrawer";
 
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
@@ -65,6 +66,7 @@ const App = () => {
   return(
     <>
       <Header />  
+        <SideDrawer />
       <ToastContainer />
       <Switch>
         <Route exact path="/" component={Home} />
@@ -91,6 +93,7 @@ const App = () => {
         <Route exact path="/sub-category/:slug" component={SubCategoryHome} />
         <Route exact path="/shop" component={Shop} />
         <Route exact path="/cart" component={Cart} />
+        
       </Switch>
     </>
   )
