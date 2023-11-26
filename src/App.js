@@ -28,6 +28,7 @@ import CategoryHome from "./pages/category/CategoryHome";
 import SubCategoryHome from "./pages/subCategory/SubCategoryHome";
 import Cart from "./pages/Cart";
 import SideDrawer from "./components/drawer/SideDrawer";
+import Checkout from "./pages/Checkout";
 
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
@@ -78,6 +79,7 @@ const App = () => {
         <UserRoute exact path="/user/history" component={History} />
         <UserRoute exact path="/user/password" component={Password} />
         <UserRoute exact path="/user/wishlist" component={Wishlist} />
+        <UserRoute exact path="/checkout" component={Checkout} />
 
         <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
         <AdminRoute exact path="/admin/category" component={CategoryCreate} />
