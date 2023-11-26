@@ -15,25 +15,25 @@ const Login = ({ history }) => {
 
   const { user } = useSelector((state) => ({ ...state }));
 
-  // useEffect(() => {
-  //   let intended = history.location.state;
-  //   if (intended) {
-  //     return;
-  //   } else {
-  //     if (user && user.token) history.push("/");
-  //   }
-  // }, [user, history]);
-
-  // to fix redirect history page after login
   useEffect(() => {
     let intended = history.location.state;
-    //console.log("intended", intended);
     if (intended) {
       return;
     } else {
       if (user && user.token) history.push("/");
     }
-  }, [history]);
+  }, [user, history]);
+
+  // to fix redirect history page after login
+  // useEffect(() => {
+  //   let intended = history.location.state;
+  //   //console.log("intended", intended);
+  //   if (intended) {
+  //     return;
+  //   } else {
+  //     if (user && user.token) history.push("/");
+  //   }
+  // }, [history]);
   
 
   const dispatch = useDispatch();

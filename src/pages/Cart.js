@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ProductCardInCheckout from '../components/cards/ProductCardInCheckout';
+import { userCart } from '../functions/user';
 
 const Cart = ({ history }) => {
   const { user, cart } = useSelector((state) => ({ ...state }));
@@ -11,12 +12,21 @@ const Cart = ({ history }) => {
     return cart.reduce((currentValue, nextValue) => {
       return currentValue + nextValue.count * nextValue.price
     }, 0)
-  }
+  };
 
   const saveOrderToDB = () => {
-    alert('Save to DB');
-    history.push('/checkout');
-  }
+    // console.log('cart', JSON.stringify(cart, null, 4));
+    userCart(cart, user.token)
+      .then((res) => {
+        console.log("CART POST RES", res);
+        if (res.data.ok) {
+          history.push('/checkout');
+        }
+      })
+      .catch((err) => {
+        console.log('cart save err', err);
+      });
+  };
 
   const showCartItems = () => (
     <table className='table table-bordered'>
