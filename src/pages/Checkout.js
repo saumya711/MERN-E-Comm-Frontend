@@ -11,6 +11,7 @@ const Checkout = () => {
   const [total, setTotal] = useState(0);
   const [address, setAddress] = useState("");
   const [addressSaved, setAddressSaved] = useState(false);
+  const [coupon, setCoupon] = useState('');
   
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state }));
@@ -53,20 +54,61 @@ const Checkout = () => {
     });
   }
 
+  const applyDiscountCoupon = () => {
+    console.log("send coupon to backend", coupon);
+  }
+
+  const showAddress = () => {
+    return (
+      <>
+        <ReactQuill theme='snow' value={address} onChange={setAddress} />
+        <button className='btn btn-primary mt-2' onClick={saveAddressToDb}>
+          Save
+        </button>
+      </>
+    )
+  }
+
+  const showOrderSummery = () => {
+    return (
+      products.map((p, i) => (
+        <div key={i}>
+          <p>
+            {p.product.title} ({p.color}) x {p.count} ={" "} 
+            {p.product.price * p.count}
+          </p>
+        </div>
+      ))
+    )
+  }
+
+  const showApplyCoupon = () => {
+    return (
+      <>
+        <input 
+          onChange={(e) => setCoupon(e.target.value)}
+          value={coupon}
+          type='text'
+          className='form-control'
+        />
+        <button className='btn btn-primary mt-2' onClick={applyDiscountCoupon}>
+          Apply
+        </button>
+      </>
+    )
+  }
+
   return (
     <div className='row'>
       <div className='col-md-6'>
         <h4>Deliver Address</h4>
         <br />
         <br />
-        <ReactQuill theme='snow' value={address} onChange={setAddress} />
-        <button className='btn btn-primary mt-2' onClick={saveAddressToDb}>
-          Save
-        </button>
+          {showAddress()}
         <hr />
         <h4>Got Coupon?</h4>
         <br />
-        Coupon input and apply button
+         {showApplyCoupon()}
       </div>
 
       <div className='col-md-6'>
@@ -74,11 +116,7 @@ const Checkout = () => {
         <hr />
         <p>Products {products.length}</p>
         <hr />
-        {products.map((p, i) => (
-          <div key={i}>
-            <p>{p.product.title} ({p.color}) x {p.count} ={" "} {p.product.price * p.count}</p>
-          </div>
-        ))}
+          {showOrderSummery()}
         <hr />
         <p>Cart Total: ${total}</p>
 
