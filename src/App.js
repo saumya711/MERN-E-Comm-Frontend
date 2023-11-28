@@ -29,6 +29,7 @@ import SubCategoryHome from "./pages/subCategory/SubCategoryHome";
 import Cart from "./pages/Cart";
 import SideDrawer from "./components/drawer/SideDrawer";
 import Checkout from "./pages/Checkout";
+import CreateCouponPage from "./pages/admin/coupons/CreateCouponPage";
 
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
@@ -89,6 +90,7 @@ const App = () => {
         <AdminRoute exact path="/admin/product" component={ProductCreate} />
         <AdminRoute exact path="/admin/products" component={AllProducts} />
         <AdminRoute exact path="/admin/product/:slug" component={ProductUpdate} />
+        <AdminRoute exact path="/admin/coupon" component={CreateCouponPage} />
 
         <Route exact path="/product/:slug" component={Product} />
         <Route exact path="/category/:slug" component={CategoryHome} />
