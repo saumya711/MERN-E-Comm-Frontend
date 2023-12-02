@@ -9,7 +9,7 @@ const promise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
 const Pyament = () => {
   return (
-    <div className='container p-5 tect-center'>
+    <div className='container p-5 text-center'>
       <h4>Complete your Purchase</h4>
       <Elements stripe={promise}>
         <div className='col-md-8 offset-md-2'>
