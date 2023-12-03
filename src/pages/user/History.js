@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import Invoice from '../../components/order/Invoice';
+import ShowPaymentInfo from '../../components/cards/ShowPaymentInfo';
 
 const History = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -20,29 +21,6 @@ const History = () => {
       console.log(JSON.stringify(res.data, null, 4));
       setOrders(res.data);
     });
-  }
-
-  const showPaymentInfo = (order) => {
-    return (
-      <div>
-        <p>
-          <span>Order Id: {order.paymentIntent.id}</span>{' / '}
-          <span>
-            Amount: {(order.paymentIntent.amount /= 100).toLocaleString("en-US", {
-              style: 'currency',
-              currency: "USD"
-            })}
-          </span>{' / '}
-          <span>Currency: {order.paymentIntent.currency.toUpperCase()}</span>{' / '}
-          <span>Method: {order.paymentIntent.payment_method_types[0]}</span>{' / '}
-          <span>Payment: {order.paymentIntent.status.toUpperCase()}</span>{' / '}
-          <span>Orderd On:{' '}
-            {new Date(order.paymentIntent.created * 1000).toLocaleString()}
-          </span>{' / '}
-          <span className='badge bg-primary text-white'>STATUS: {order.orderStatus}</span>
-        </p>
-      </div>
-    )
   }
 
   const showOrderInTable = (order) => {
@@ -105,7 +83,7 @@ const History = () => {
               </h4>
               {orders.map((order, i) => (
                 <div key={i} className='m-5 p-3 card'>
-                  {showPaymentInfo(order)}
+                  {<ShowPaymentInfo order={order} />}
                   {showOrderInTable(order)}
                   <div className='row'>
                     <div className='col'>
