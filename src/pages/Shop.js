@@ -332,6 +332,7 @@ const Shop = () => {
                 {brands.map((b) => (
                   <div>
                     <Radio 
+                      key={b}
                       value={b}
                       name={b}
                       checked={b === brand}
@@ -358,6 +359,7 @@ const Shop = () => {
                 {colors.map((c) => (
                   <div>
                     <Radio 
+                      key={c}
                       value={c}
                       name={c}
                       checked={c === color}

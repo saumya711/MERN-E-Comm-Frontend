@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { Card } from "antd";
 import { DollarOutlined, CheckOutlined } from "@ant-design/icons";
 import Laptop from "../images/laptop.png"
+import { createOrder, emprtyUserCart } from "../functions/user";
+import { loadStripe } from "@stripe/stripe-js";
 
 const StripeCheckout = ({ history }) => {
   const dispatch = useDispatch();
@@ -51,6 +53,28 @@ const StripeCheckout = ({ history }) => {
       setError(`Payment Failed ${payload.error.message}`);
       setProcessing(false);
     } else {
+      // here we get result after successfull payment
+      // create order and save in database for admin to process
+      createOrder(payload, user.token).then((res) => {
+        if(res.data.ok) {
+          // empty cart from local storage
+          if(typeof window !== "undefined") {
+            localStorage.removeItem("cart");
+          }
+          // empty cart from local storage
+          dispatch({
+            type:"ADD_TO_CART",
+            payload: [],
+          })
+          // reset coupon to false
+          dispatch({
+            type:"COUPON_APPLIED",
+            payload: false,
+          })
+          // empty cart from database
+          emprtyUserCart(user.token);
+        }
+      })
       console.log(JSON.stringify(payload, null, 4));
       setError(null);
       setProcessing(false);
