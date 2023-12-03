@@ -50,7 +50,7 @@ const ProductCard = ({product}) => {
   }
 
   // destructure
-  const { title, description, images, slug, price } = product;
+  const { title, description, images, slug, price, quantity } = product;
   
   return (
     <>
@@ -73,8 +73,9 @@ const ProductCard = ({product}) => {
               <EyeOutlined className='text-primary' /> <br /> View Product
           </Link>, 
           <Tooltip title={tooltip}>
-            <a onClick={handleAddToCart}>
-              <ShoppingCartOutlined className='text-danger' /> <br /> Add to Cart
+            <a onClick={handleAddToCart} style={{ pointerEvents: quantity <= 0 ? 'none' : 'auto' }}>
+              <ShoppingCartOutlined className='text-danger' /> <br />
+              {quantity <= 0 ? "Out of Stock" : "Add to Cart"}
             </a>
           </Tooltip>
           
