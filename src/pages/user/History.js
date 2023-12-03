@@ -3,7 +3,8 @@ import UserNav from '../../components/nav/UserNav';
 import { getUserOrders } from '../../functions/user';
 import { useSelector, useDispatch } from 'react-redux';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import { Document, Page, Text, View, StyleSheet, PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import Invoice from '../../components/order/Invoice';
 
 const History = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -83,16 +84,7 @@ const History = () => {
   const showDownloadLink = (order) => {
     return (
       <PDFDownloadLink
-        document={
-          <Document>
-            <Page size='A4'>
-              <View>
-                <Text>Section #1</Text>
-                <Text>Section #2</Text>
-              </View>
-            </Page>
-          </Document>
-        }
+        document={<Invoice  order={order}/>}
         fileName='invoice.pdf'
         className='btn btn-sm btn-block btn-outline-primary'
       >
