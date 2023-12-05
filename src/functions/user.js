@@ -78,6 +78,19 @@ export const getUserOrders = async (authtoken) => {
     );
 }
 
+// cash on delivery
+export const createUserCashOrder = async (authtoken, COD) => {
+    return await axios.post(
+        `${process.env.REACT_APP_API}/user/cash-order`,
+        { COD },
+        {
+            headers: {
+                authtoken,
+            },
+        }
+    );
+}
+
 export const getWishlist = async (authtoken) => {
     return await axios.get(
         `${process.env.REACT_APP_API}/user/wishlist`, {
@@ -111,3 +124,4 @@ export const addToWishlist = async (productId, authtoken) => {
         }
     );
 }
+

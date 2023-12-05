@@ -28,6 +28,25 @@ const Cart = ({ history }) => {
       });
   };
 
+  const saveCashOrderToDB = () => {
+    // console.log('cart', JSON.stringify(cart, null, 4));
+    dispatch({
+      type: 'CASH_ON_DELIVER',
+      payload: true,
+    });
+
+    userCart(cart, user.token)
+      .then((res) => {
+        console.log("CART POST RES", res);
+        if (res.data.ok) {
+          history.push('/checkout');
+        }
+      })
+      .catch((err) => {
+        console.log('cart save err', err);
+      });
+  };
+
   const showCartItems = () => (
     <table className='table table-bordered'>
       <thead className='thead-light'>
@@ -74,13 +93,23 @@ const Cart = ({ history }) => {
           Total: <b>${getTotal()}</b>
           <hr/>
           {user ? (
-            <button 
-              className='btn btn-sm btn-primary mt-2'
-              onClick={saveOrderToDB}
-              disabled={!cart.length}
-            >
-              Proceed to Checkout
-            </button>
+            <>
+              <button 
+                className='btn btn-sm btn-primary mt-2'
+                onClick={saveOrderToDB}
+                disabled={!cart.length}
+              >
+                Proceed to Checkout
+              </button>
+              <br />
+              <button 
+                className='btn btn-sm btn-warning mt-2'
+                onClick={saveCashOrderToDB}
+                disabled={!cart.length}
+              >
+                Pay Cash on Delivery
+              </button>
+            </>
           ) : (
             <button className='btn btn-sm btn-primary mt-2'>
               <Link
