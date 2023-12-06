@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Card } from "antd";
 import { DollarOutlined, CheckOutlined } from "@ant-design/icons";
 import Laptop from "../images/laptop.png"
-import { createOrder, emprtyUserCart } from "../functions/user";
+import { createOrder, emptyUserCart } from "../functions/user";
 import { loadStripe } from "@stripe/stripe-js";
 
 const StripeCheckout = ({ history }) => {
@@ -72,7 +72,7 @@ const StripeCheckout = ({ history }) => {
             payload: false,
           })
           // empty cart from database
-          emprtyUserCart(user.token);
+          emptyUserCart(user.token);
         }
       })
       console.log(JSON.stringify(payload, null, 4));

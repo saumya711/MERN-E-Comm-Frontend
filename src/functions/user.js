@@ -22,7 +22,7 @@ export const getUserCart = async (authtoken) => {
     );
 }
 
-export const emprtyUserCart = async (authtoken) => {
+export const emptyUserCart = async (authtoken) => {
     return await axios.delete(
         `${process.env.REACT_APP_API}/user/cart`, {
             headers: {
@@ -79,10 +79,10 @@ export const getUserOrders = async (authtoken) => {
 }
 
 // cash on delivery
-export const createUserCashOrder = async (authtoken, COD) => {
+export const createUserCashOrder = async (authtoken, COD, couponTrueOrFalse) => {
     return await axios.post(
         `${process.env.REACT_APP_API}/user/cash-order`,
-        { COD },
+        { COD, couponApplied: couponTrueOrFalse },
         {
             headers: {
                 authtoken,
