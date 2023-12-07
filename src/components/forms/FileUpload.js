@@ -8,7 +8,7 @@ const FileUpload = ({ values, setValues, setLoading}) => {
     const { user } = useSelector((state) => ({ ...state}));
 
     const fileUploadAndResize = (e) => {
-        console.log(e.target.files);
+        // console.log(e.target.files);
         setLoading(true);
         // resize
         let files = e.target.files;
@@ -34,7 +34,7 @@ const FileUpload = ({ values, setValues, setLoading}) => {
                             }
                         )
                         .then((res) => {
-                            console.log("Image Upload RES Data", res);
+                            // console.log("Image Upload RES Data", res);
                             setLoading(false);
                             allUploadedFiles.push(res.data);
 
@@ -42,7 +42,7 @@ const FileUpload = ({ values, setValues, setLoading}) => {
                         })
                         .catch((err) => {
                             setLoading(false);
-                            console.log("Cloudinary Upload Err", err);
+                            // console.log("Cloudinary Upload Err", err);
                         });
                     },
                     "base64",
