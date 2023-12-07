@@ -10,7 +10,7 @@ const CategoryList = () => {
         setLoading(true);
         getAllCategories().then((c) => {
             setCategories(c.data);
-            console.log("categories",categories)
+            // console.log("categories",categories)
             setLoading(false);
         });
     },[]);

@@ -10,7 +10,7 @@ const ProductCardInCheckout = ({ product }) => {
   let dispatch = useDispatch();
 
   const handleColorChange = (e) => {
-    console.log('Color Changed', e.target.value);
+    // console.log('Color Changed', e.target.value);
 
     let cart = [];
     if (typeof window !== 'undefined') {
@@ -35,7 +35,7 @@ const ProductCardInCheckout = ({ product }) => {
 
   const handleQuantityChange = (e) => {
     let count = e.target.value < 1 ? 1 : e.target.value;
-    console.log("Available", product.quantity);
+    // console.log("Available", product.quantity);
 
     if (count > product.quantity) {
       toast.error(`Max Available Quantity: ${product.quantity}`);
